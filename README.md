@@ -6,7 +6,7 @@
   ☕ Code and coffee
 </h4>
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/badge/languages-3-blue">
+  <img alt="GitHub language count" src="https://img.shields.io/badge/Languages-1-red">
 
   <a href="https://github.com/BrenerQuevedo/omnistack-frontend/issues">
     <img alt="Repository issues" src="https://img.shields.io/github/issues/BrenerQuevedo/omnistack-frontend">
