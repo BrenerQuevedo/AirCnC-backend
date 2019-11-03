@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const corts = require("cors");
+const cors = require("cors");
 
 const routes = require("./routes");
 
@@ -18,6 +18,5 @@ mongoose.connect("mongodb+srv://brener:brener123@omnistack-sm6zk.mongodb.net/omn
 app.use(cors());
 app.use(express.json());
 app.use(routes);
-
 
 app.listen(3333);
