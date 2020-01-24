@@ -12,10 +12,6 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
-io.on('connection', socket => {
-    console.log("Usuario conectado", socket.id);
-});
-
 
 mongoose.connect("mongodb+srv://brener:brener123@omnistack-sm6zk.mongodb.net/omnistack?retryWrites=true&w=majority",{
  useNewUrlParser: true,
@@ -25,6 +21,22 @@ mongoose.connect("mongodb+srv://brener:brener123@omnistack-sm6zk.mongodb.net/omn
 // req.query = Acessar query params
 // req.params = Acessar route params (para edição e delete)
 // req.body = Acessar corpo da requisição (para criação , edição)
+
+
+//para uso em produção, utilizar o Redis que armazena os dados. Por enquanto, a cada reload no server, todos os users serão apagados 
+const connectedUsers = {};
+
+io.on('connection', socket => {
+    const {user_id} = socket.handshake.query;
+    connectedUsers[user_id] = socket.id;
+});
+
+app.use((req,res,next) => {
+    req.io = io;
+    req.connectedUsers = connectedUsers; 
+
+    return next();
+});
 
 app.use(cors());
 app.use(express.json());
