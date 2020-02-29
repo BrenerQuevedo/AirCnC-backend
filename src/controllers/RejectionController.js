@@ -8,7 +8,12 @@ module.exports = {
         
         //console.log(booking.spot.user);
        //booking.approved = (booking.approved == null ? false: res.status(403).json({'error': 'Spot already in use'}));
-       
+
+       const bookingUserSocket = req.connectedUsers[booking.user];
+
+       if(bookingUserSocket) {
+           req.io.to(bookingUserSocket).emit('booking_response', booking);
+       }
 
         await booking.save();
 

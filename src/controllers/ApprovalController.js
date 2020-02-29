@@ -7,7 +7,12 @@ module.exports = {
         const booking = await Booking.findById(booking_id).populate('spot');
 
         //booking.approved = (booking.approved == null ? true: res.status(403).json({'error': 'Spot already in use'}));
-    
+        const bookingUserSocket = req.connectedUsers[booking.user];
+
+        if(bookingUserSocket) {
+            req.io.to(bookingUserSocket).emit('booking_response', booking);
+        }
+
 
         await booking.save();
 
